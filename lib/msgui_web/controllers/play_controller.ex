@@ -25,4 +25,14 @@ defmodule MsguiWeb.PlayController do
     # render(conn, "stop.html")
     json(conn, %{playing: "stopped"})
   end
+
+  def bus_vals(conn, %{"bus_ids" => bus_ids_string}) do
+    bus_ids = Enum.map(String.split(bus_ids_string, ","), fn bus_id_string -> String.to_integer(bus_id_string) end)
+    Logger.info("bus_ids: #{inspect(bus_ids)}")
+    json(conn, %{bus_map:
+                 Enum.map(bus_ids, fn bus_id ->
+                   %{bus_id: bus_id, bus_val: if bus_id != 0 do ScClient.get_bus_val(bus_id) else 0 end}
+                 end )
+                })
+  end
 end

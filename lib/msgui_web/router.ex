@@ -21,6 +21,7 @@ defmodule MsguiWeb.Router do
     get "/play/:example", PlayController, :play
     get "/examples_list", PlayController, :list
     get "/stop", PlayController, :stop
+    get "/bus_vals/:bus_ids", PlayController, :bus_vals
     # resources "/play", PlayController
     # options "/play", PlayController, :options
   end
